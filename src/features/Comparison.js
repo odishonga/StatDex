@@ -1,4 +1,13 @@
 import React, {useState} from "react";
+import { PokeCard } from "./PokeCard";
+import styled from "styled-components";
+
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+`
 
 export const Comparison = () => {
     const [userInput, setUserInput] = useState('');
@@ -35,35 +44,50 @@ export const Comparison = () => {
         getData2().then(result => setStatName2(result.stats[stat].stat.name));
     }
 
+    if (statName1 === 'special-attack') {setStatName1('spatk')};
+    if (statName1 === 'special-defense') {setStatName1('spdef')};
+    if (statName2 === 'special-attack') {setStatName2('spatk')};
+    if (statName2 === 'special-defense') {setStatName2('spdef')};
+
+    const dynamicProps1 = {[statName1]: pokemon1};
+    const dynamicProps2 = {[statName2]: pokemon2};
+    let show = 'flex';
+    let disabledToggle = false;
+    if (!pokemon1 && !pokemon2) {show = 'none'}
+    if (userInput === '' && userInput2 === '') {disabledToggle = true}
+
     return (
         <>
-            <p>
-                Is <input type='text' onChange={(e) => setUserInput(e.target.value.toLowerCase())} placeholder='Enter a pokemon!'/>
-                <select value={stat} onChange={(e) => setStat(e.target.value)}>
-                    <option value={0}>bulkier</option>
-                    <option value={1}>physically stronger</option>
-                    <option value={2}>physically bulkier</option>
-                    <option value={3}>specially stronger</option>
-                    <option value={4}>specially bulkier</option>
-                    <option value={5}>faster</option>
-                </select> than <input type='text' onChange={(e) => setUserInput2(e.target.value.toLowerCase())} placeholder='Enter a pokemon!'/> ? 
-            </p>
-            <button onClick={handleSubmit}>Go!</button>
+            <Container style={{flexDirection: 'row', width: '100%', textAlign: "center"}}>
+                <p>
+                    Is <input type='text' onChange={(e) => setUserInput(e.target.value.toLowerCase())} placeholder='Enter a pokemon!'/> 
+                    <select value={stat} onChange={(e) => setStat(e.target.value)}>
+                        <option value={0}>bulkier</option>
+                        <option value={1}>physically stronger</option>
+                        <option value={2}>physically bulkier</option>
+                        <option value={3}>specially stronger</option>
+                        <option value={4}>specially bulkier</option>
+                        <option value={5}>faster</option>
+                    </select> than <input type='text' onChange={(e) => setUserInput2(e.target.value.toLowerCase())} placeholder='Enter a pokemon!'/> ? 
+                </p>    
+            </Container>
+            
+            <button onClick={handleSubmit} disabled={disabledToggle}>Go!</button>
+            <div style={{display: show}}>{pokemon1 > pokemon2 ? <p style={{fontSize: 35, color: 'yellow'}}>Yes!</p> : <p style={{fontSize: 35, color: 'pink'}}>No!</p> }</div>
 
-            {pokemon1 > pokemon2 ? <p>Yes!</p> : <p>No!</p> }
-
-            <div>
-                <h3>{name1}</h3>
-                <img src={sprite1}/>
-                <p>{statName1}: {pokemon1}</p>
-            </div>
-             {pokemon1 > pokemon2 ? '>' : '<'}
-             <div>
-                <h3>{name2}</h3>
-                <img src={sprite2}/>
-                <p>{statName2}: {pokemon2}</p>   
-             </div> 
-              
+            <Container style={{display: show}}>
+                <PokeCard
+                    {...dynamicProps1}
+                    sprite={sprite1}
+                    name={name1}
+                />
+                {pokemon1 > pokemon2 ? <p style={{fontSize:90}}>{'≥'}</p> : <p style={{fontSize:90}}>{'≤'}</p>}
+                <PokeCard
+                    {...dynamicProps2}
+                    sprite={sprite2}
+                    name={name2}
+                />
+            </Container>
         </>
         
     )
