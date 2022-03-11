@@ -79,13 +79,13 @@ export const Comparison = () => {
                 <PokeCard
                     {...dynamicProps1}
                     sprite={sprite1}
-                    name={name1}
+                    name={name1.toUpperCase()}
                 />
                 {pokemon1 > pokemon2 ? <p style={{fontSize:90}}>{'≥'}</p> : <p style={{fontSize:90}}>{'≤'}</p>}
                 <PokeCard
                     {...dynamicProps2}
                     sprite={sprite2}
-                    name={name2}
+                    name={name2.toUpperCase()}
                 />
             </Container>
         </>

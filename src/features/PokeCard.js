@@ -9,14 +9,14 @@ const Container = styled.div`
     border: 2px solid black;
     width: fit-content;
     height: fit-content;
-    padding: 2%;
+    overflow: scroll;
     background: pink;
 `
 
 export const PokeCard = ({name, sprite, hp, attack, defense, spatk, spdef, speed, total}) => {
     return (
         <Container>
-            <h3>{name.toUpperCase()}</h3>
+            <h3>{name}</h3>
             <img src={sprite}/>
             {hp ? <p>HP: {hp}</p> : null}
             {attack ? <p>Attack: {attack}</p> : null}
