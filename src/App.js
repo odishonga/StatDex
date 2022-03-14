@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import { MainScreen } from './features/MainScreen';
 import styled from 'styled-components';
 import './App.css';
@@ -41,7 +40,14 @@ function App() {
     <Container>
       <Nav>
           <DexButton onClick={() => setState('Comparison')}>Comparison</DexButton>
-          <DexButton onClick={() => setState('Top Pokemon')}>Strongest Pokemon</DexButton>
+          <DexButton onClick={() => setState('Top Pokemon')}>Strongest Pokemon (Total)</DexButton>
+          <DexButton onClick={()=> setState('HP')}>Most HP</DexButton>
+          <DexButton onClick={()=> setState('attack')}>Best Attack</DexButton>
+          <DexButton onClick={()=> setState('defence')}>Best Defence</DexButton>
+          <DexButton onClick={()=> setState('spatk')}>Best Special Attack</DexButton>
+          <DexButton onClick={()=> setState('spdef')}>Best Special Defence</DexButton>
+          <DexButton onClick={()=> setState('speed')}>Fastest</DexButton>
+          <DexButton onClick={()=> setState('Watch')}>Watch!</DexButton>
       </Nav>
 
       <ScreenContainer><MainScreen display={state}/></ScreenContainer>

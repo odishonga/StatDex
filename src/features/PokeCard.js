@@ -6,6 +6,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 2%;
     border: 2px solid black;
     width: fit-content;
     height: fit-content;
@@ -17,7 +18,7 @@ export const PokeCard = ({name, sprite, hp, attack, defense, spatk, spdef, speed
     return (
         <Container>
             <h3>{name}</h3>
-            <img src={sprite}/>
+            <img alt={`Sprite of ${name}`} src={sprite}/>
             {hp ? <p>HP: {hp}</p> : null}
             {attack ? <p>Attack: {attack}</p> : null}
             {defense ? <p>Defence: {defense}</p> : null}
