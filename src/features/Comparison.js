@@ -7,6 +7,10 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 90%;
+
+    @media(max-width: 429px) {
+        flex-direction: column;
+    }
 `
 
 export const Comparison = () => {
