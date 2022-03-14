@@ -12,7 +12,7 @@ export const Watch = () => {
     return (
         <Container>
             <iframe
-                src="https://player.twitch.tv/?channel=pokemon&parent=localhost"
+                src="https://player.twitch.tv/?channel=pokemon&parent=statdex.netlify.app"
                 height="100%"
                 width="100%"
                 title='Pokemon Twitch livestream'
