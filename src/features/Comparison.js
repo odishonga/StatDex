@@ -25,6 +25,8 @@ export const Comparison = () => {
     const [name2, setName2] = useState('');
     const [statName1, setStatName1] = useState('');
     const [statName2, setStatName2] = useState('');
+    const [error1, setError1] = useState(false);
+    const [error2, setError2] = useState(false);
 
     const pokeApi = 'https://pokeapi.co/api/v2/pokemon/';
     const getData1 = async ()=> {
@@ -38,14 +40,8 @@ export const Comparison = () => {
         return data;
     }
     const handleSubmit = () => {
-        getData1().then(result => setPokemon1(result.stats[stat].base_stat));
-        getData2().then(result => setPokemon2(result.stats[stat].base_stat));
-        getData1().then(result => setSprite1(result.sprites.front_default));
-        getData2().then(result => setSprite2(result.sprites.front_default));
-        getData1().then(result => setName1(result.name));
-        getData2().then(result => setName2(result.name));
-        getData1().then(result => setStatName1(result.stats[stat].stat.name));
-        getData2().then(result => setStatName2(result.stats[stat].stat.name));
+        getData1().then(result => {setPokemon1(result.stats[stat].base_stat); setError1(false); setSprite1(result.sprites.front_default); setName1(result.name); setStatName1(result.stats[stat].stat.name)}, () => setError1(true));
+        getData2().then(result => {setPokemon2(result.stats[stat].base_stat); setError2(false); setSprite2(result.sprites.front_default); setName2(result.name); setStatName2(result.stats[stat].stat.name)}, () => setError2(true));
     }
 
     if (statName1 === 'special-attack') {setStatName1('spatk')};
@@ -84,12 +80,14 @@ export const Comparison = () => {
                     {...dynamicProps1}
                     sprite={sprite1}
                     name={name1.toUpperCase()}
+                    error={error1}
                 />
                 {pokemon1 > pokemon2 ? <p style={{fontSize:55}}>{'≥'}</p> : <p style={{fontSize:55}}>{'≤'}</p>}
                 <PokeCard
                     {...dynamicProps2}
                     sprite={sprite2}
                     name={name2.toUpperCase()}
+                    error={error2}
                 />
             </Container>
         </>

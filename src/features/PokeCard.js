@@ -14,7 +14,10 @@ const Container = styled.div`
     background: pink;
 `
 
-export const PokeCard = ({name, sprite, hp, attack, defense, spatk, spdef, speed, total}) => {
+export const PokeCard = ({name, sprite, hp, attack, defense, spatk, spdef, speed, total, error}) => {
+    if (error) {
+        return <Container style={{color: 'red', fontWeight: 600}}><p>Oops, that Pokemon doesn't exist in the database! Try a different spelling.</p></Container>;
+    }
     return (
         <Container>
             <h3>{name}</h3>
